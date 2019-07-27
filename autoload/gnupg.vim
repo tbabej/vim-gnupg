@@ -142,6 +142,11 @@ function gnupg#init(bufread)
     let g:GPGHomedir = ''
   endif
 
+  " check if single extension mode is preferred
+  if (!exists("g:GPGSingleExtensionMode"))
+    let g:GPGSingleExtensionMode = 0
+  endif
+
   " print version
   call s:GPGDebug(1, "gnupg.vim ". g:loaded_gnupg)
 
@@ -266,8 +271,13 @@ function gnupg#decrypt(bufread)
   endif
   let b:GPGOptions = []
 
-  " file name minus extension
-  let autocmd_filename = fnamemodify(filename, ':r')
+  if (g:GPGSingleExtensionMode == 0)
+      " file name minus extension for appling autocommands
+      let autocmd_filename = fnamemodify(filename, ':r')
+  else
+      " do not strip the extension in the single extension mode
+      let autocmd_filename = filename
+  endif
 
   " File doesn't exist yet, so nothing to decrypt
   if !filereadable(filename)

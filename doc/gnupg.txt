@@ -94,5 +94,15 @@ g:GPGFilePattern        If set, overrides the default set of file patterns
                         that determine whether this plugin will be activated.
                         Defaults to `*.{gpg,asc,pgp}`.
 
+g:GPGSingleExtensionMode                        *gnupg-g:GPGSingleExtensionMode*
+                        If not set, gnupg will call autocommands on a filename
+                        of the current buffer with the extension stripped,
+                        i.e. for filenames of the form 'file.txt.gpg' it will
+                        call autocommands for 'file.txt'. This behaviour is
+                        undiserable if you want to associate autocommands
+                        directly with the '.gpg' extension. Set to 1 to turn
+                        off this behaviour.
+
+
 ==============================================================================
 vim:tw=78:sw=4:ts=8:ft=help:norl:
